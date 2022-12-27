@@ -1,6 +1,7 @@
 package com.epam.training.microservicefoundation.resourceservice.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
@@ -12,6 +13,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 import java.net.URI;
 
 @Configuration
+@RefreshScope
 public class AwsS3Configuration {
 
     @Value("${aws.s3.endpoint}")
