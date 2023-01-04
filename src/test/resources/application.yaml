@@ -13,6 +13,7 @@ kafka:
     resources: resources
     partitions.count: 3
     replication.factor: 3
+  consumer.concurrency: 3
 
 # datasource configuration
 spring:
