@@ -24,8 +24,11 @@ import java.util.List;
 @RequestMapping("/api/v1/resources")
 public class ResourceController {
     private static final Logger log = LoggerFactory.getLogger(ResourceController.class);
+    private final ResourceService service;
     @Autowired
-    private ResourceService service;
+    public ResourceController(ResourceService service) {
+        this.service = service;
+    }
 
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(value = HttpStatus.CREATED)
