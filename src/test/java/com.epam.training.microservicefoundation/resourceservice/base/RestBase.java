@@ -3,6 +3,7 @@ package com.epam.training.microservicefoundation.resourceservice.base;
 import com.epam.training.microservicefoundation.resourceservice.api.ResourceController;
 import com.epam.training.microservicefoundation.resourceservice.api.ResourceExceptionHandler;
 import com.epam.training.microservicefoundation.resourceservice.domain.ResourceNotFoundException;
+import com.epam.training.microservicefoundation.resourceservice.domain.ResourceRecord;
 import com.epam.training.microservicefoundation.resourceservice.service.ResourceService;
 import io.restassured.config.EncoderConfig;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
@@ -18,6 +19,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvcBuilder;
@@ -28,6 +30,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
@@ -49,6 +52,7 @@ public abstract class RestBase {
                 "classpath:files/mpthreetest.mp3"))));
 
         when(service.getById(1999L)).thenThrow(new ResourceNotFoundException("Resource with id=1999 not found"));
+        when(service.save(any())).thenReturn(new ResourceRecord(1L));
 
         resourceController = new ResourceController(service);
         EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
