@@ -10,7 +10,7 @@ import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
+import org.mockito.ArgumentMatcher;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -19,23 +19,21 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Collections;
+import java.util.Objects;
 
-import static org.mockito.ArgumentMatchers.any;
+import static com.epam.training.microservicefoundation.resourceservice.domain.ResourceType.MP3;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.when;
 
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-//@ExtendWith(value = {PostgresExtension.class, CloudStorageExtension.class})
-//@TestPropertySource(locations = "classpath:application.yaml")
 @ExtendWith({MockitoExtension.class, SpringExtension.class})
 @MockitoSettings(strictness = Strictness.LENIENT) // https://stackoverflow.com/questions/42947613/how-to-resolve-unneccessary-stubbing-exception
 @ContextConfiguration(classes = RestBase.RestBaseConfiguration.class)
@@ -52,7 +50,10 @@ public abstract class RestBase {
                 "classpath:files/mpthreetest.mp3"))));
 
         when(service.getById(1999L)).thenThrow(new ResourceNotFoundException("Resource with id=1999 not found"));
-        when(service.save(any())).thenReturn(new ResourceRecord(1L));
+        when(service.save(argThat(new SuccessfulMultipartMatcher()))).thenReturn(new ResourceRecord(1L));
+        when(service.deleteByIds(new long[]{1L})).thenReturn(Collections.singletonList(new ResourceRecord(1L)));
+        when(service.deleteByIds(argThat(argument -> argument == null || argument.length == 0 || argument.length > 200)))
+                .thenThrow(new IllegalArgumentException("Id param was not validated, check your file"));
 
         resourceController = new ResourceController(service);
         EncoderConfig encoderConfig = new EncoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false);
@@ -67,6 +68,14 @@ public abstract class RestBase {
         @Bean
         ResourceExceptionHandler resourceExceptionHandler() {
             return new ResourceExceptionHandler();
+        }
+    }
+
+    static class SuccessfulMultipartMatcher implements ArgumentMatcher<MultipartFile> {
+        @Override
+        public boolean matches(MultipartFile argument) {
+            return !argument.isEmpty() && MP3.getMimeType().equals(argument.getContentType()) &&
+                    Objects.requireNonNull(argument.getOriginalFilename()).endsWith(MP3.getExtension());
         }
     }
 }
