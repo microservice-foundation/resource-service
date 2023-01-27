@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(PostgresExtension.class)
 @DirtiesContext
 @Sql(value = "/sql/data.sql")
-@TestPropertySource(locations = "classpath:application.yaml")
+@TestPropertySource(locations = "classpath:application.properties")
 class ResourceRepositoryTest {
     @Autowired
     ResourceRepository resourceRepository;

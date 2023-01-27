@@ -24,7 +24,7 @@ public class AwsS3TestConfiguration {
     private String amazonS3BucketName;
 
     @Bean
-    CloudStorageRepository cloudStorageRepository() {
+    public CloudStorageRepository cloudStorageRepository() {
         return new CloudStorageRepository(amazonS3BucketName, amazonS3Endpoint, s3Client());
     }
 

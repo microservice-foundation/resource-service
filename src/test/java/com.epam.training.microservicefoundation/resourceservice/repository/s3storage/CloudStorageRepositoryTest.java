@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(value = {SpringExtension.class, CloudStorageExtension.class})
 @ContextConfiguration(classes = {AwsS3TestConfiguration.class})
-@TestPropertySource(locations = "classpath:application.yaml")
+@TestPropertySource(locations = "classpath:application.properties")
 class CloudStorageRepositoryTest {
 
     @Autowired

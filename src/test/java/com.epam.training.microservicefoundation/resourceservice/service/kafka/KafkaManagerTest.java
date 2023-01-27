@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(value = {SpringExtension.class, KafkaExtension.class})
 @ContextConfiguration(classes = {KafkaTestConfiguration.class, KafkaTopicTestConfiguration.class})
-@TestPropertySource(locations = "classpath:application.yaml")
+@TestPropertySource(locations = "classpath:application.properties")
 class KafkaManagerTest {
 
     @Autowired
