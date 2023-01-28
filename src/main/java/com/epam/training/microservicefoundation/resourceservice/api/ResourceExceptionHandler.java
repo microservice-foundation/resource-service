@@ -1,7 +1,7 @@
 package com.epam.training.microservicefoundation.resourceservice.api;
 
-import com.epam.training.microservicefoundation.resourceservice.domain.APIError;
-import com.epam.training.microservicefoundation.resourceservice.domain.ResourceNotFoundException;
+import com.epam.training.microservicefoundation.resourceservice.model.APIError;
+import com.epam.training.microservicefoundation.resourceservice.model.ResourceNotFoundException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;

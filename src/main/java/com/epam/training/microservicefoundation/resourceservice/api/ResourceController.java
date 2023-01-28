@@ -1,6 +1,6 @@
 package com.epam.training.microservicefoundation.resourceservice.api;
 
-import com.epam.training.microservicefoundation.resourceservice.domain.ResourceRecord;
+import com.epam.training.microservicefoundation.resourceservice.model.ResourceRecord;
 import com.epam.training.microservicefoundation.resourceservice.service.ResourceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

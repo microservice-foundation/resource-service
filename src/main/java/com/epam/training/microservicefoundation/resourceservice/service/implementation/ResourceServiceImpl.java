@@ -1,9 +1,9 @@
 package com.epam.training.microservicefoundation.resourceservice.service.implementation;
 
-import com.epam.training.microservicefoundation.resourceservice.domain.Mapper;
-import com.epam.training.microservicefoundation.resourceservice.domain.Resource;
-import com.epam.training.microservicefoundation.resourceservice.domain.ResourceNotFoundException;
-import com.epam.training.microservicefoundation.resourceservice.domain.ResourceRecord;
+import com.epam.training.microservicefoundation.resourceservice.model.Mapper;
+import com.epam.training.microservicefoundation.resourceservice.model.Resource;
+import com.epam.training.microservicefoundation.resourceservice.model.ResourceNotFoundException;
+import com.epam.training.microservicefoundation.resourceservice.model.ResourceRecord;
 import com.epam.training.microservicefoundation.resourceservice.repository.CloudStorageRepository;
 import com.epam.training.microservicefoundation.resourceservice.repository.ResourceRepository;
 import com.epam.training.microservicefoundation.resourceservice.service.ResourceService;

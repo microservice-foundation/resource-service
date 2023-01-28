@@ -2,8 +2,8 @@ package com.epam.training.microservicefoundation.resourceservice.base;
 
 import com.epam.training.microservicefoundation.resourceservice.api.ResourceController;
 import com.epam.training.microservicefoundation.resourceservice.api.ResourceExceptionHandler;
-import com.epam.training.microservicefoundation.resourceservice.domain.ResourceNotFoundException;
-import com.epam.training.microservicefoundation.resourceservice.domain.ResourceRecord;
+import com.epam.training.microservicefoundation.resourceservice.model.ResourceNotFoundException;
+import com.epam.training.microservicefoundation.resourceservice.model.ResourceRecord;
 import com.epam.training.microservicefoundation.resourceservice.service.ResourceService;
 import io.restassured.config.EncoderConfig;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
@@ -30,7 +30,7 @@ import java.io.FileNotFoundException;
 import java.util.Collections;
 import java.util.Objects;
 
-import static com.epam.training.microservicefoundation.resourceservice.domain.ResourceType.MP3;
+import static com.epam.training.microservicefoundation.resourceservice.model.ResourceType.MP3;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.when;
 

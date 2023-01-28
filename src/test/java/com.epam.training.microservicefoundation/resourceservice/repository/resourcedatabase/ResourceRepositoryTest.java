@@ -1,6 +1,6 @@
 package com.epam.training.microservicefoundation.resourceservice.repository.resourcedatabase;
 
-import com.epam.training.microservicefoundation.resourceservice.domain.Resource;
+import com.epam.training.microservicefoundation.resourceservice.model.Resource;
 import com.epam.training.microservicefoundation.resourceservice.repository.ResourceRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

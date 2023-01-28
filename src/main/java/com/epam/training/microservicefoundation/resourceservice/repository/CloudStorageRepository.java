@@ -1,11 +1,9 @@
 package com.epam.training.microservicefoundation.resourceservice.repository;
 
-import com.epam.training.microservicefoundation.resourceservice.configuration.AwsS3Configuration;
-import com.epam.training.microservicefoundation.resourceservice.domain.ResourceNotFoundException;
+import com.epam.training.microservicefoundation.resourceservice.model.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.core.sync.RequestBody;

@@ -1,10 +1,10 @@
-package com.epam.training.microservicefoundation.resourceservice.domain;
+package com.epam.training.microservicefoundation.resourceservice.model;
 
 import org.springframework.http.HttpStatus;
 
 public class APIError {
     private HttpStatus status;
-    private long timestamp;
+    private final long timestamp;
     private String message;
     private String debugMessage;
 

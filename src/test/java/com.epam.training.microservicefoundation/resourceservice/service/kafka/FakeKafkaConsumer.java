@@ -1,10 +1,9 @@
 package com.epam.training.microservicefoundation.resourceservice.service.kafka;
 
-import com.epam.training.microservicefoundation.resourceservice.domain.ResourceRecord;
+import com.epam.training.microservicefoundation.resourceservice.model.ResourceRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.support.Acknowledgment;
 
 import java.util.concurrent.CountDownLatch;
 

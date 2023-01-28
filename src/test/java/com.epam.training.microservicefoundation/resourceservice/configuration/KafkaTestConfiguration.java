@@ -1,6 +1,6 @@
 package com.epam.training.microservicefoundation.resourceservice.configuration;
 
-import com.epam.training.microservicefoundation.resourceservice.domain.ResourceRecord;
+import com.epam.training.microservicefoundation.resourceservice.model.ResourceRecord;
 import com.epam.training.microservicefoundation.resourceservice.service.implementation.KafkaManager;
 import com.epam.training.microservicefoundation.resourceservice.service.kafka.FakeKafkaConsumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;

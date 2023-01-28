@@ -2,7 +2,7 @@ package com.epam.training.microservicefoundation.resourceservice.service.kafka;
 
 import com.epam.training.microservicefoundation.resourceservice.configuration.KafkaTestConfiguration;
 import com.epam.training.microservicefoundation.resourceservice.configuration.KafkaTopicTestConfiguration;
-import com.epam.training.microservicefoundation.resourceservice.domain.ResourceRecord;
+import com.epam.training.microservicefoundation.resourceservice.model.ResourceRecord;
 import com.epam.training.microservicefoundation.resourceservice.service.implementation.KafkaManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

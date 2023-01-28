@@ -1,7 +1,7 @@
 package com.epam.training.microservicefoundation.resourceservice.repository.s3storage;
 
 import com.epam.training.microservicefoundation.resourceservice.configuration.AwsS3TestConfiguration;
-import com.epam.training.microservicefoundation.resourceservice.domain.ResourceNotFoundException;
+import com.epam.training.microservicefoundation.resourceservice.model.ResourceNotFoundException;
 import com.epam.training.microservicefoundation.resourceservice.repository.CloudStorageRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
