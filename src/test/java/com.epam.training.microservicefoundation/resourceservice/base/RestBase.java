@@ -5,6 +5,8 @@ import com.epam.training.microservicefoundation.resourceservice.api.ResourceExce
 import com.epam.training.microservicefoundation.resourceservice.model.ResourceNotFoundException;
 import com.epam.training.microservicefoundation.resourceservice.model.ResourceRecord;
 import com.epam.training.microservicefoundation.resourceservice.service.ResourceService;
+import com.epam.training.microservicefoundation.resourceservice.service.Validator;
+import com.epam.training.microservicefoundation.resourceservice.service.implementation.MultipartFileValidator;
 import io.restassured.config.EncoderConfig;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig;
@@ -31,6 +33,8 @@ import java.util.Collections;
 import java.util.Objects;
 
 import static com.epam.training.microservicefoundation.resourceservice.model.ResourceType.MP3;
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.when;
 
@@ -43,14 +47,22 @@ public abstract class RestBase {
     ResourceExceptionHandler resourceExceptionHandler;
     @MockBean
     ResourceService service;
+    private Validator<MultipartFile> multipartFileValidator;
 
     @BeforeEach
     public void setup() throws FileNotFoundException {
+        multipartFileValidator = new MultipartFileValidator();
         when(service.getById(123L)).thenReturn(new InputStreamResource(new FileInputStream(ResourceUtils.getFile(
                 "classpath:files/mpthreetest.mp3"))));
 
         when(service.getById(1999L)).thenThrow(new ResourceNotFoundException("Resource with id=1999 not found"));
-        when(service.save(argThat(new SuccessfulMultipartMatcher()))).thenReturn(new ResourceRecord(1L));
+//        when(service.save(argThat(new SuccessfulMultipartMatcher()))).thenReturn(new ResourceRecord(1L));
+        when(service.save(argThat(argument -> TRUE.equals(multipartFileValidator.validate(argument)))))
+                .thenReturn(new ResourceRecord(1L));
+
+        when(service.save(argThat(argument -> FALSE.equals(multipartFileValidator.validate(argument))))).thenThrow(
+                new IllegalArgumentException("File with name 'bad-request.mp4' was not validated, check your file"));
+
         when(service.deleteByIds(new long[]{1L})).thenReturn(Collections.singletonList(new ResourceRecord(1L)));
         when(service.deleteByIds(argThat(argument -> argument == null || argument.length == 0 || argument.length > 200)))
                 .thenThrow(new IllegalArgumentException("Id param was not validated, check your file"));
