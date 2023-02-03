@@ -140,14 +140,6 @@ class ResourceControllerTest {
     }
 
     @Test
-    void shouldThrowValidationExceptionWhenDeleteResourceByNonexistentIds() throws Exception {
-        ResultActions result = mockMvc
-                .perform(MockMvcRequestBuilders.delete("/api/v1/resources").param("id", "10", "1245"));
-
-        result.andExpect(status().isNotFound());
-    }
-
-    @Test
     void shouldGetResource() throws Exception {
         // upload a file
         final File songFile = ResourceUtils.getFile("classpath:files/mpthreetest2.mp3");

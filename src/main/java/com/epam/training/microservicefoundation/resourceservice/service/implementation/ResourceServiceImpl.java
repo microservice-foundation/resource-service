@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -83,16 +84,13 @@ public class ResourceServiceImpl implements ResourceService {
             log.error("Id param size '{}' should be less than 200 \nreason:", ids.length, ex);
             throw ex;
         }
-        List<Resource> resources = new ArrayList<>();
-        for(long id: ids) {
-            Resource resource = resourceRepository.findById(id).orElseThrow(() ->
-                    new ResourceNotFoundException(String.format("Resource not found with id '%d'", id)));
-            resources.add(resource);
-        }
 
-        resources.stream().map(Resource::getName).forEach(storageRepository::deleteByName);
-        Arrays.stream(ids).forEach(resourceRepository::deleteById);
-
+        Arrays.stream(ids).mapToObj(resourceRepository::findById).forEach(resourceOptional ->
+                resourceOptional.ifPresent(resource -> {
+                    storageRepository.deleteByName(resource.getName());
+                    resourceRepository.deleteById(resource.getId());
+                })
+        );
         log.debug("Resources with id(s) '{}' were deleted", ids);
         return Arrays.stream(ids).mapToObj(ResourceRecord::new).collect(Collectors.toList());
     }
