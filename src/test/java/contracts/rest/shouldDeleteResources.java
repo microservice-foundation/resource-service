@@ -21,7 +21,7 @@ public class shouldDeleteResources implements Supplier<Contract> {
             });
             contract.response(response -> {
                 response.status(response.OK());
-                response.body(Collections.singletonList(map().entry("Id", "1")));
+                response.body(Collections.singletonList(map().entry("id", "1")));
             });
         });
     }

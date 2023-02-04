@@ -112,14 +112,14 @@ class ResourceControllerTest {
         MvcResult mvcResult2 = mockMvc.perform(MockMvcRequestBuilders.multipart("/api/v1/resources/")
                 .file(multipartFile2)).andReturn();
 
-        String multipartFile1Id = getValueOf("Id", mvcResult1.getResponse().getContentAsString());
-        String multipartFile2Id = getValueOf("Id", mvcResult2.getResponse().getContentAsString());
+        String multipartFile1Id = getValueOf("id", mvcResult1.getResponse().getContentAsString());
+        String multipartFile2Id = getValueOf("id", mvcResult2.getResponse().getContentAsString());
         String[] ids = {multipartFile1Id, multipartFile2Id};
         ResultActions result = mockMvc
                         .perform(MockMvcRequestBuilders.delete("/api/v1/resources").param("id", ids));
 
         result.andExpect(status().isOk());
-        result.andExpect(jsonPath("$[*].Id", contains(Integer.valueOf(ids[0]), Integer.valueOf(ids[1]))));
+        result.andExpect(jsonPath("$[*].id", contains(Integer.valueOf(ids[0]), Integer.valueOf(ids[1]))));
     }
 
 
@@ -152,7 +152,7 @@ class ResourceControllerTest {
                         .file(multipartFile)).andReturn();
         // get the file
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/resources/{id}",
-                getValueOf("Id", mvcResult.getResponse().getContentAsString())));
+                getValueOf("id", mvcResult.getResponse().getContentAsString())));
 
         result.andExpect(status().isOk());
         result.andExpect(content().contentType(multipartFile.getContentType()));

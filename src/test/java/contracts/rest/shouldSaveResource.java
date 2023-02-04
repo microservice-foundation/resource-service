@@ -34,7 +34,7 @@ public class shouldSaveResource implements Supplier<Contract> {
             });
             contract.response(response -> {
                 response.status(response.CREATED());
-                response.body(map().entry("Id", "1"));
+                response.body(map().entry("id", "1"));
                 response.headers(headers -> headers.contentType(headers.applicationJson()));
             });
         });
